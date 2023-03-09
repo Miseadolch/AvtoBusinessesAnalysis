@@ -2,7 +2,6 @@ from flask import Flask
 from flask import render_template, request, redirect, abort, jsonify, make_response
 import pandas as pd
 from pathlib import Path
-from gevent.pywsgi import WSGIServer
 from forms.rating import RatingForm
 
 app = Flask(__name__)
@@ -49,5 +48,4 @@ def rating():
 
 
 if __name__ == '__main__':
-    http_server = WSGIServer(("127.0.0.1", 5000), app)
-    http_server.serve_forever()
+    app.run(port=5000, host='127.0.0.1')
