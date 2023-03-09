@@ -28,7 +28,7 @@ neo4j-driver==5.4.0
 networkx-neo4j==0.0.2
 openpyxl==3.0.10
 packaging==23.0
-pandas==1.5.3
+pandas==1.4.4
 Pillow==9.4.0
 pyparsing==3.0.9
 python-dateutil==2.8.2
