@@ -130,8 +130,8 @@ class MainDownloader:
 
     @staticmethod
     def write_to_file(content: bytes, domain: str):
-        os.makedirs(f'{PROJECT_DIR}/downloader2/site_dir_{domain}', exist_ok=True)
-        with open(f'{PROJECT_DIR}/downloader2/site_dir_{domain}/save.html', 'ab+') as file:
+        os.makedirs(f'{PROJECT_DIR}/downloader/site_dir_{domain}', exist_ok=True)
+        with open(f'{PROJECT_DIR}/downloader/site_dir_{domain}/save.html', 'ab+') as file:
             file.write(content)
             file.close()
 

@@ -4,7 +4,6 @@ import requests
 from pprint import pprint
 from dataclasses import dataclass, field
 
-
 DEBUG_MODE = False
 
 
@@ -100,9 +99,11 @@ class ContactsParser:
 
     @staticmethod
     def get_phones(html_content: str) -> list:
-        phone = re.findall(r"[^a-zA-Z0-9]\+?[78]\s?[\s(]?[0-9]{3}[\-)]?\s?[0-9]{3}[-\s]?\s?[0-9]{2}[-,\s]?\s?[0-9]{2}", html_content)
+        phone = re.findall(r"[^a-zA-Z0-9]\+?[78]\s?[\s(]?[0-9]{3}[\-)]?\s?[0-9]{3}[-\s]?\s?[0-9]{2}[-,\s]?\s?[0-9]{2}",
+                           html_content)
         phone2 = re.findall(r"[^a-zA-Z0-9]\+?[78]\s?[\s(]?[0-9]{4}[\-)]?\s?[0-9]{3}[-\s]?\s?[0-9]{3}", html_content)
-        phone3 = re.findall(r"[^a-zA-Z0-9]\+?[78]\s?[\s(]?[0-9]{4}[\-)]?\s?[0-9]{2}[-\s]?\s?[0-9]{2}[-\s]?\s?[0-9]{2}", html_content)
+        phone3 = re.findall(r"[^a-zA-Z0-9]\+?[78]\s?[\s(]?[0-9]{4}[\-)]?\s?[0-9]{2}[-\s]?\s?[0-9]{2}[-\s]?\s?[0-9]{2}",
+                            html_content)
         phone = list(set(map(ContactsParser.phone_formatter, phone + phone2 + phone3)))
 
         # Validate phone with spys.one (Only 50 requests per hour)
@@ -127,4 +128,3 @@ if __name__ == '__main__':
         parser = ContactsParser()
         if DEBUG_MODE:
             pprint(parser(content))
-

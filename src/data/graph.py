@@ -17,7 +17,7 @@ def main():
 
     # G.delete_all()
 
-    for i in df[:50].values:
+    for i in df[:].values:
         G.node_label = 'URL'
         G.add_node(i[0])
         if i[1] != 'None':
