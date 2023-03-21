@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup as bs4
 
 dc = {}
 PROJECT_DIR = str(Path(__file__).parent.parent.parent)
-file = open(PROJECT_DIR + '\\rating.csv', 'w')
+file = open(PROJECT_DIR + '\\rating.csv', 'w+')
 file_writer = csv.writer(file, delimiter="&", lineterminator="\r")
 sp = ['site', 'rating']
 file_writer.writerow(sp)
@@ -82,21 +82,39 @@ for site in main_df.values:
                         rating *= 0.87
                 kol += 1
             except Exception:
-                pass
+                try:
+                    file_to_parse = PROJECT_DIR + '\\downloader2' + '\\' + fl + '\\save.html'
+                    with open(file_to_parse, 'rb') as file:
+                        content = str(file.read().decode('utf-8', 'replace'))
+                        if rating_check(content):
+                            rating *= 0.87
+                    kol += 1
+                except Exception as ex:
+                    pass
             if rating <= 0.02 or kol == len(sp_svyzi):
                 break
 
         if rating >= 0.02:
-            file_to_parse = PROJECT_DIR + '\\downloader' + '\\site_dir_' + site[0] + '\\save.html'
-            with open(file_to_parse, 'rb') as file:
-                content = str(file.read().decode('utf-8', 'replace'))
-                if rating_check(content):
-                    rating *= 0.6
+            try:
+                file_to_parse = PROJECT_DIR + '\\downloader' + '\\site_dir_' + site[0] + '\\save.html'
+                with open(file_to_parse, 'rb') as file:
+                    content = str(file.read().decode('utf-8', 'replace'))
+                    if rating_check(content):
+                        rating *= 0.6
+            except Exception:
+                try:
+                    file_to_parse = PROJECT_DIR + '\\downloader2' + '\\site_dir_' + site[0] + '\\save.html'
+                    with open(file_to_parse, 'rb') as file:
+                        content = str(file.read().decode('utf-8', 'replace'))
+                        if rating_check(content):
+                            rating *= 0.6
+                except Exception as ex:
+                    pass
 
         sp = (site[0] + '&' + str(round(rating * 100)) + '%').split('&')
         file_writer.writerow(sp)
     except Exception as ex:
-        print(ex)
+        pass
 
 """with open(PROJECT_DIR + '/rating.csv', 'w') as file:
     file_writer = csv.writer(file, delimiter="&", lineterminator="\r")
