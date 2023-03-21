@@ -21,6 +21,8 @@ def rating():
             site = site[site.index('/') + 2:]
         if site.count('/') != 0:
             site = site[:site.index('/')]
+        if 'www.' in site[:4]:
+            site = site[4:]
         for i in domens:
             if i in site[-5:]:
                 valid_domen = 1
